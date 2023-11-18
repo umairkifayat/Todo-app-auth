@@ -3,16 +3,31 @@ import { auth } from "./config.js";
 
 
 
-const email = document.querySelector('.email');
-const form = document.querySelector('.form');
-const password = document.querySelector('.password');
 
+
+// ouauthfunction start
+onAuthStateChanged(auth, (user) => {
+if (user) {
+ 
+        const uid = user.uid ;
+      if (uid === auth.currentUser.uid) {
+            window.location = './home.html'
+        
+        }
+      }
+      // 
+    });
+// ouauthfunction end
 
 
 
 
 //  log in function start
-form.addEventListener('submit',(event)=>{
+
+const email = document.querySelector('.email');
+const password = document.querySelector('.password');
+const form = document.querySelector('.btn');
+form.addEventListener('click',(event)=>{
     event.preventDefault()
             signInWithEmailAndPassword(auth, email.value, password.value)
   .then((userCredential) => {
@@ -36,16 +51,12 @@ form.addEventListener('submit',(event)=>{
 
 
 
-        // ouauthfunction start
-    onAuthStateChanged(auth, (user) => {
-        if (user) {
-         
-                const uid = user.uid ;
-              if (uid === auth.currentUser.uid) {
-                    window.location = './home.html'
-                
-                }
-              }
-              // 
-            });
-        // ouauthfunction end
+
+
+
+
+
+
+
+
+
