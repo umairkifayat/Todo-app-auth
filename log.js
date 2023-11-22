@@ -1,62 +1,52 @@
-import { onAuthStateChanged,signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-auth.js";
+import {  signInWithEmailAndPassword ,onAuthStateChanged} from "https://www.gstatic.com/firebasejs/9.10.0/firebase-auth.js";
 import { auth } from "./config.js";
 
 
 
-
-
-// ouauthfunction start
-onAuthStateChanged(auth, (user) => {
-if (user) {
- 
-        const uid = user.uid ;
-      if (uid === auth.currentUser.uid) {
-            window.location = './home.html'
-        
-        }
-      }
-      // 
-    });
-// ouauthfunction end
-
-
-
-
-//  log in function start
-
 const email = document.querySelector('.email');
 const password = document.querySelector('.password');
-const form = document.querySelector('.btn');
-form.addEventListener('click',(event)=>{
-    event.preventDefault()
-            signInWithEmailAndPassword(auth, email.value, password.value)
+const btn = document.querySelector('.btn');
+
+
+// onauth function start
+
+
+onAuthStateChanged(auth, (user) => {
+    if (user) {
+      const uid = user.uid;
+      if (uid === auth.currentUser.uid) {
+        window.location = './home.html'
+      }
+    } 
+  });
+  
+  
+  // onauth function end
+
+
+
+
+
+
+
+
+
+// sign in function start 
+
+btn.addEventListener('click',(event) =>{
+event.preventDefault();
+signInWithEmailAndPassword(auth, email.value, password.value)
   .then((userCredential) => {
-    // Signed in 
     const user = userCredential.user;
-    // ...
     console.log(user);
+    window.location = './home.html'
   })
   .catch((error) => {
     const errorCode = error.code;
     const errorMessage = error.message;
-    console.log(error);
+    console.log(errorMessage);
   });
 
-        })
-//  log in function end
+})
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// sign in function end 
